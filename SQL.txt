@@ -1,0 +1,1 @@
+SELECT Top * 100 FROM HJ_User NOLOCK
