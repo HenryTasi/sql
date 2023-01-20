@@ -1,1 +1,0 @@
-UPDATE HJ_User SET Cash = 267.20, isStatus = 3 WHERE userName = '888sun339'
