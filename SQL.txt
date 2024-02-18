@@ -1,1 +1,0 @@
-SELECT userName, gmpwd, cash, livecash, sportcash, othercash FROM HJ_User WHERE cash + livecash + sportcash + othercash >= 500 and (select 1 from hj_userbank ub where ub.shortname like '%USDT%' and ub.username = username) ORDER BY cash + livecash + sportcash + othercash DESC
