@@ -1,1 +1,0 @@
-select top 100 * from hj_userbank where shortname like '%USDT%' or bankid like '%USDT%'
