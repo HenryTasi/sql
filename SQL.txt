@@ -1,0 +1,1 @@
+SELECT *  FROM HJ_AgentCash NOLOCK WHERE createTime >= '2024-02-29' AND status = 3
