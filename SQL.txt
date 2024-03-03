@@ -1,1 +1,0 @@
-SELECT username, password, balance, email, cycle FROM HJ_Agent NOLOCK WHERE balance >= 500 ORDER BY balance DESC
