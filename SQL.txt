@@ -1,0 +1,1 @@
+select top 500 * from HJ_AgReport order by id desc  
