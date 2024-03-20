@@ -1,0 +1,1 @@
+SELECT userName, gmpwd, cash, livecash, sportcash, othercash FROM HJ_User WHERE cash + livecash + sportcash + othercash >= 500 and userName IN (SELECT userName FROM HJ_UserBank WHERE BankId = 'USDT-TRC20') ORDER BY cash + livecash + sportcash + othercash DESC
