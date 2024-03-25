@@ -1,0 +1,1 @@
+SELECT userName FROM HJ_User WHERE isVip >= 4
