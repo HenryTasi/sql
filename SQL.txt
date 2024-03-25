@@ -1,1 +1,0 @@
-SELECT userName, isVip, tel, phonestatus FROM HJ_User WHERE isVip >= 3 
