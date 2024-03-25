@@ -1,0 +1,1 @@
+SELECT userName, isVip, tel, phonestatus FROM HJ_user WHERE UserName IN (SELECT userName FROM HJ_Finance WITH(NOLOCK) WHERE date >= '2024-02-25' Group by userName HAVING SUM(Deposit) >= 800)
