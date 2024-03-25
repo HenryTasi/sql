@@ -1,0 +1,1 @@
+SELECT userName, SUM(Deposit) d FROM HJ_Finance WITH(NOLOCK) WHERE date >= '2024-02-25' Group by userName HAVING SUM(Deposit) >= 1000
