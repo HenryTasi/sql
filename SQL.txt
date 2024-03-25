@@ -1,0 +1,1 @@
+SELECT u.userName, u.tel, f.d, u.phonestatus FROM HJ_user u WITH(NOLOCK) INNER JOIN (SELECT userName, SUM(Deposit) d FROM HJ_Finance WITH(NOLOCK) WHERE date >= '2024-02-25' Group by userName HAVING SUM(Deposit) >= 1000 ) f WHERE u.userName = f.userName AND u.u.phonestatus = 1
