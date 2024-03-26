@@ -1,1 +1,0 @@
-SELECT TOP 5000 * FROM HJ_LoginLog WHERE userType = 2 and createDate >= '2024-03-01'
