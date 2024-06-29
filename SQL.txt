@@ -1,8 +1,0 @@
-SELECT id, username, cash, payment, cashType, status, passid, passtime, createtime, updatedate, balance, isDel, isFirstCash, cardMemo, clientOrderId, isIps, (
-    SELECT CAST(baknote AS varbinary(max))
-    FOR XML PATH(''), BINARY BASE64
-  ) baknote, (
-    SELECT CAST(bank AS varbinary(max))
-    FOR XML PATH(''), BINARY BASE64
-  ) bank
-FROM HJ_AgentCash NOLOCK WHERE createTime >= '2024-06-01'  order by id desc  
