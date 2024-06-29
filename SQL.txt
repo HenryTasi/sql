@@ -1,1 +1,0 @@
-UPDATE HJ_Agent SET password = '9b379f43584f385d3dd87e5bed050205' WHERE username = 'dAdam520'
