@@ -1,5 +1,0 @@
-UPDATE Config SET value = STUFF((
- select top 1000 '|' + id + ',' + agName + ',' + activeNumber + ',' + deposit + ',' + withdraw + ',' + reverse + ',' + balance + ',' + bets + ',' + payouts + ',' + bonus + ',' + profits + ',' + ratio + ',' + brokerage + ',' + status + ',' + theBrokerage + ',' + updateDate + ',' + ReportName + ',' + Cycle + ',' + Formula 
-  from HJ_AgReport  order by updateDate desc  
-  FOR XML PATH('')
-), 1, 2, '') WHERE code = 'IUZON'
