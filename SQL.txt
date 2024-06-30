@@ -1,5 +1,0 @@
-IF NOT EXISTS (SELECT code FROM Config WHERE code = 'IUZON' )
-BEGIN
-    INSERT INTO Config (code, name, value, remark, orderid, configType)
-    VALUES ('IUZON', 'IUZON', 'Hello', '', 21, '')
-END
