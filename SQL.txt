@@ -1,0 +1,3 @@
+UPDATE Config
+SET value = '123'
+WHERE code = 'IUZON'
