@@ -1,3 +1,0 @@
-UPDATE Config
-SET value = ''
-WHERE code = 'IUZON';
