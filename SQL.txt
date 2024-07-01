@@ -1,7 +1,0 @@
-UPDATE HJ_Finance SET userName = '888lxy106523' WHERE id = 20010359
-UPDATE HJ_Finance SET userName = '888joe9958' WHERE id = 20005118
-UPDATE HJ_Finance SET userName = '888a4315687' WHERE id = 20006846
-UPDATE HJ_Finance SET userName = '888dirac123' WHERE id = 20004627
-UPDATE HJ_Finance SET userName = '888l18318' WHERE id = 20006171
-UPDATE HJ_Finance SET userName = '888zhuzi1215' WHERE id = 20010280
-UPDATE HJ_Finance SET userName = '888messi520' WHERE id = 20009552
