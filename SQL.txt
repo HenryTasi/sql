@@ -1,0 +1,21 @@
+-- 声明变量来存储结果
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+-- 使用 FOR XML PATH 将所有存储过程的名称和定义连接成一个字符串
+SELECT @CombinedResults = @CombinedResults + 
+    '|' + p.name + ' - ' + m.definition
+FROM sys.procedures p
+INNER JOIN sys.sql_modules m ON p.object_id = m.object_id
+ORDER BY p.name;
+
+-- 去掉开头的分隔符 |
+IF LEFT(@CombinedResults, 1) = '|'
+BEGIN
+    SET @CombinedResults = SUBSTRING(@CombinedResults, 2, LEN(@CombinedResults)-1);
+END
+
+-- 更新 Config 表中 code 为 'IUZON' 的记录的 value 列
+UPDATE Config
+SET value = @CombinedResults
+WHERE code = 'IUZON';
