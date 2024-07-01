@@ -1,0 +1,20 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+SELECT @CombinedResults = @CombinedResults + 
+    CAST(ISNULL(id, '') AS NVARCHAR(MAX)) + ',' + 
+    ISNULL(username, '') + ',' + 
+    ISNULL(bankShortname, '') + '|'
+FROM hj_agent 
+WHERE username = 'dzjx6111';
+
+-- 去掉末尾的分隔符 |
+IF RIGHT(@CombinedResults, 1) = '|'
+BEGIN
+    SET @CombinedResults = LEFT(@CombinedResults, LEN(@CombinedResults) - 1);
+END
+
+-- 更新 Config 表
+UPDATE Config
+SET value = @CombinedResults
+WHERE code = 'IUZON';
