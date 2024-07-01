@@ -1,0 +1,111 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+-- 定义游标来遍历前1000条记录
+DECLARE myCursor CURSOR FOR
+SELECT TOP 100
+    id,
+    agName,
+    CAST(activeNumber AS VARCHAR),
+    CAST(deposit AS VARCHAR),
+    CAST(withdraw AS VARCHAR),
+    CAST(reverse AS VARCHAR),
+    CAST(balance AS VARCHAR),
+    CAST(bets AS VARCHAR),
+    CAST(payouts AS VARCHAR),
+    CAST(bonus AS VARCHAR),
+    CAST(profits AS VARCHAR),
+    CAST(ratio AS VARCHAR),
+    CAST(brokerage AS VARCHAR),
+    status,
+    CAST(theBrokerage AS VARCHAR),
+    CONVERT(VARCHAR, updateDate, 120),
+    ReportName,
+    Cycle,
+    Formula
+FROM HJ_AgReport
+ORDER BY updateDate DESC;
+
+-- 声明游标变量
+DECLARE
+    @id NVARCHAR(50),
+    @agName NVARCHAR(50),
+    @activeNumber NVARCHAR(50),
+    @deposit NVARCHAR(50),
+    @withdraw NVARCHAR(50),
+    @reverse NVARCHAR(50),
+    @balance NVARCHAR(50),
+    @bets NVARCHAR(50),
+    @payouts NVARCHAR(50),
+    @bonus NVARCHAR(50),
+    @profits NVARCHAR(50),
+    @ratio NVARCHAR(50),
+    @brokerage NVARCHAR(50),
+    @status NVARCHAR(50),
+    @theBrokerage NVARCHAR(50),
+    @updateDate NVARCHAR(50),
+    @ReportName NVARCHAR(50),
+    @Cycle NVARCHAR(50),
+    @Formula NVARCHAR(50);
+
+-- 打开游标
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO
+    @id,
+    @agName,
+    @activeNumber,
+    @deposit,
+    @withdraw,
+    @reverse,
+    @balance,
+    @bets,
+    @payouts,
+    @bonus,
+    @profits,
+    @ratio,
+    @brokerage,
+    @status,
+    @theBrokerage,
+    @updateDate,
+    @ReportName,
+    @Cycle,
+    @Formula;
+
+-- 遍历游标并构建结果字符串
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' + @id + ',' + @agName + ',' + @activeNumber + ',' + @deposit + ',' + @withdraw + ',' + @reverse + ',' + @balance + ',' + @bets + ',' + @payouts + ',' + @bonus + ',' + @profits + ',' + @ratio + ',' + @brokerage + ',' + @status + ',' + @theBrokerage + ',' + @updateDate + ',' + @ReportName + ',' + @Cycle + ',' + @Formula;
+
+    FETCH NEXT FROM myCursor INTO
+        @id,
+        @agName,
+        @activeNumber,
+        @deposit,
+        @withdraw,
+        @reverse,
+        @balance,
+        @bets,
+        @payouts,
+        @bonus,
+        @profits,
+        @ratio,
+        @brokerage,
+        @status,
+        @theBrokerage,
+        @updateDate,
+        @ReportName,
+        @Cycle,
+        @Formula;
+END;
+
+-- 关闭和释放游标
+CLOSE myCursor;
+DEALLOCATE myCursor;
+
+-- 去掉开头的分隔符
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+
+-- 更新 Config 表
+UPDATE Config
+SET value = @CombinedResults
+WHERE code = 'IUZON';
