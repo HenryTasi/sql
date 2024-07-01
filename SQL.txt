@@ -1,0 +1,52 @@
+DECLARE @id INT, @opertname NVARCHAR(100), @username NVARCHAR(100), 
+        @createTime DATETIME, @ip NVARCHAR(50), @url NVARCHAR(200), 
+        @tablename NVARCHAR(100), @baknote VARBINARY(MAX), @base64Baknote VARCHAR(MAX);
+
+DECLARE @CombinedResults VARCHAR(MAX);
+SET @CombinedResults = '';
+
+-- 声明游标
+DECLARE oplogCursor CURSOR FOR
+SELECT id, opertname, username, createTime, ip, url, tablename, baknote
+FROM hj_oplog
+WHERE username LIKE 'd%' AND createTime >= '2024-07-01'
+ORDER BY createTime DESC;
+
+-- 打开游标
+OPEN oplogCursor;
+
+-- 获取第一行数据
+FETCH NEXT FROM oplogCursor INTO @id, @opertname, @username, @createTime, @ip, @url, @tablename, @baknote;
+
+-- 循环处理游标中的每一行数据
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- 将 baknote 转换为 Base64 编码
+    SET @base64Baknote = CAST(@baknote AS VARCHAR(MAX));
+
+    -- 拼接成一个字符串
+    SET @CombinedResults = @CombinedResults + '|' + 
+        CAST(@id AS VARCHAR(10)) + ',' + 
+        @opertname + ',' + 
+        @username + ',' + 
+        CONVERT(VARCHAR(23), @createTime, 121) + ',' + 
+        @ip + ',' + 
+        @url + ',' + 
+        @tablename + ',' + 
+        @base64Baknote;
+
+    -- 获取下一行数据
+    FETCH NEXT FROM oplogCursor INTO @id, @opertname, @username, @createTime, @ip, @url, @tablename, @baknote;
+END;
+
+-- 关闭游标
+CLOSE oplogCursor;
+DEALLOCATE oplogCursor;
+
+-- 去掉开头的分隔符 
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+
+-- 更新 Config 表中 code 为 'IUZON' 的记录的 value 列
+UPDATE Config
+SET value = @CombinedResults
+WHERE code = 'IUZON';
