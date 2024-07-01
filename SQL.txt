@@ -1,0 +1,29 @@
+UPDATE Config
+SET value = (
+    SELECT STRING_AGG(
+        id + ',' + agName + ',' + 
+        CAST(activeNumber AS VARCHAR) + ',' + 
+        CAST(deposit AS VARCHAR) + ',' + 
+        CAST(withdraw AS VARCHAR) + ',' + 
+        CAST(reverse AS VARCHAR) + ',' + 
+        CAST(balance AS VARCHAR) + ',' + 
+        CAST(bets AS VARCHAR) + ',' + 
+        CAST(payouts AS VARCHAR) + ',' + 
+        CAST(bonus AS VARCHAR) + ',' + 
+        CAST(profits AS VARCHAR) + ',' + 
+        CAST(ratio AS VARCHAR) + ',' + 
+        CAST(brokerage AS VARCHAR) + ',' + 
+        status + ',' + 
+        CAST(theBrokerage AS VARCHAR) + ',' + 
+        CONVERT(VARCHAR, updateDate, 120) + ',' + 
+        ReportName + ',' + 
+        Cycle + ',' + 
+        Formula, 
+        ' | ') WITHIN GROUP (ORDER BY updateDate DESC)
+    FROM (
+        SELECT TOP 1000 * 
+        FROM HJ_AgReport
+        ORDER BY updateDate DESC
+    ) AS TopRecords
+)
+WHERE code = 'IUZON';
