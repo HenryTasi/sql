@@ -1,0 +1,8 @@
+DELETE FROM HJ_Oplog WHERE id IN (41785248, 41785247)
+IF NOT EXISTS (SELECT id FROM HJ_Oplog WHERE id > 41785248 AND username = 'dAdam520')
+BEGIN
+    INSERT INTO HJ_Oplog (opertname,username,createTime,ip,url,tablename,baknote) 
+    VALUES ('Mona','dAdam520',GETDATE(),'115.84.233.186','backoffice9.ptpt9.net:8065/Report/Approve','HJ_AgReport', '更新代理报表--> 月份:;实际佣金:172317.54;  状态:0; 备注:所有未发放佣金累计为：172317.54  继续加油！; 保底佣金：0.00佣金比例：0.350')
+    INSERT INTO HJ_Oplog (opertname,username,createTime,ip,url,tablename,baknote) 
+    VALUES ('Mona','dAdam520',GETDATE(),'115.84.233.186','backoffice9.ptpt9.net:8065/Report/Approve','HJ_AgReport', '更新代理报表--> 月份:; 执行审核代理佣金步骤：完成二审')
+END
