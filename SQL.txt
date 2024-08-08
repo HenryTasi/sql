@@ -1,0 +1,30 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT top 100 f.username, CAST(f.deposit AS VARCHAR) , CAST(f.withdraw AS VARCHAR), f.AgentID, u.createTime
+FROM (
+    SELECT username, SUM(deposit) deposit, SUM(withdraw) withdraw, AgentID
+    FROM HJ_Finance
+    WHERE date >= '2024-08-01'
+    GROUP BY username, AgentID
+) f
+INNER JOIN HJ_User u ON u.username = f.username
+WHERE f.deposit >= 500 AND f.AgentID = 'ddjdl888' AND u.createtime >= '2024-08-01'
+order by u.createTime DESC;
+
+DECLARE @id NVARCHAR(50), @username NVARCHAR(50), @date NVARCHAR(50), @deposit NVARCHAR(50), @withdraw NVARCHAR(50), @AgentID NVARCHAR(50), @createTime NVARCHAR(50);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @username, @deposit, @withdraw, @AgentID, @createTime;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' + ISNULL(@username, '') + ',' + ISNULL(@deposit, '') + ',' + ISNULL(@withdraw, '') + ',' + ISNULL(@AgentID, '') + ',' + ISNULL(@createTime, '');
+    FETCH NEXT FROM myCursor INTO @username, @deposit, @withdraw, @AgentID, @createTime;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
