@@ -1,1 +1,0 @@
-UPDATE Config SET value = 'fail' WHERE code = 'IUZON';
