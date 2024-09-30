@@ -1,0 +1,21 @@
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = 'dkiki111',
+    @reportName = '2024-08',
+    @reportStartDate = '2024-08-01',
+    @reportEndDate = '2024-08-31',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = 'dkiki111',
+    @reportName = '2024-09',
+    @reportStartDate = '2024-09-01',
+    @reportEndDate = '2024-09-30',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
