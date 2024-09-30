@@ -1,3 +1,0 @@
-
-UPDATE HJ_AgReport SET activeNumber = 3, deposit = 182109.72, withdraw = -131061, reverse = 0, balance = 0, bets = 606670.14, payouts = 69822.39, bonus = 18774.18, profits = 40574.85, brokerage = 14201.2, updateDate = '2024-09-02 17:02:09', theBrokerage = 0 WHERE id = 108361
-
