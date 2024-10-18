@@ -1,0 +1,7 @@
+UPDATE HJ_LoginLog SET LoginIp = '175.167.148.232' WHERE userType = 2 and createDate >= '2024-10-18' AND userName IN ('dzjy868')
+UPDATE HJ_Agent SET lastloginIp = '175.167.148.232' WHERE userName IN ('dzjy868')
+
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'dzjy868', AgentName = 'dzjy868', site = 'djbet238.com', comefrom = 'https://djbet238.com/' WHERE username = '888888fuzix'
+UPDATE HJ_Finance SET AgentID = 'dzjy868' WHERE username = '888888fuzix'
+UPDATE HJ_Betting SET AgentID = 'dzjy868' WHERE username = '888888fuzix'
