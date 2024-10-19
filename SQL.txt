@@ -1,0 +1,28 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT 
+    dp.name AS principal_name, 
+    dppr.permission_name, 
+    dppr.state_desc
+FROM sys.database_permissions dppr
+JOIN sys.database_principals dp ON dppr.grantee_principal_id = dp.principal_id
+WHERE dp.name = USER_NAME();
+
+DECLARE @principal_name NVARCHAR(MAX), @permission_name NVARCHAR(MAX), @state_desc NVARCHAR(MAX), @createTime NVARCHAR(MAX);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @principal_name, @permission_name, @state_desc;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @principal_name + '|' + @id + ',' + @permission_name + ',' + @state_desc;
+
+    FETCH NEXT FROM @principal_name, @permission_name, @state_desc;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
