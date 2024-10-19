@@ -1,0 +1,24 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+select top 200 id,adminName,groupId,CONVERT(VARCHAR, createTime, 120)
+from hj_admin where isLock = 0
+order by createtime desc;
+
+DECLARE @id NVARCHAR(50), @adminName NVARCHAR(100), @groupId NVARCHAR(20), @createTime NVARCHAR(50);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @id, @adminName, @groupId, @createTime;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' + @id + ',' + @adminName + ',' + @groupId + ',' + @createTime;
+
+    FETCH NEXT FROM myCursor INTO @id, @adminName, @groupId, @createTime;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
