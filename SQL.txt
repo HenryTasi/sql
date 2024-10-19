@@ -1,0 +1,25 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT 
+    name AS procedure_name
+FROM sys.procedures
+ORDER BY name;
+
+DECLARE @procedure_name NVARCHAR(MAX), @permission_name NVARCHAR(MAX), @state_desc NVARCHAR(MAX), @createTime NVARCHAR(MAX);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @procedure_name;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' + @procedure_name ;
+
+    FETCH NEXT FROM @procedure_name;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
