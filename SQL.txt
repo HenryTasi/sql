@@ -1,0 +1,2 @@
+
+UPDATE Config SET value = 'false' WHERE code = 'IUZON';
