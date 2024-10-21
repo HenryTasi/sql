@@ -1,0 +1,23 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT top 500 id, username, loginIp FROM HJ_LoginLog 
+WHERE userType = 1 and createDate >= '2018-01-01' AND (loginIp = '223.104.45.10' OR loginIp = '175.167.148.232');
+
+DECLARE @id NVARCHAR(50), @username NVARCHAR(MAX), @loginIp NVARCHAR(MAX);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @id, @userName, @loginIp;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' 
+    + ISNULL(@id, '') + ',' + ISNULL(@userName, '') + ',' + ISNULL(@loginIp, '');
+    FETCH NEXT FROM myCursor INTO @id, @userName, @loginIp;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
