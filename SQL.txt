@@ -1,0 +1,20 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'dj8886d.com', comefrom = 'dj8886d.com' WHERE username = '888wll199301'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888wll199301'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888wll199301'
+
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = 'dhbyz888',
+    @reportName = '2024-10',
+    @reportStartDate = '2024-10-01',
+    @reportEndDate = '2024-10-31',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+
+UPDATE HJ_AgReport SET updateDate = '2024-10-23 17:14:25' WHERE id = 109086
