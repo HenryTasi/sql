@@ -1,9 +1,0 @@
-SELECT 
-    name AS function_name,
-    OBJECT_DEFINITION(object_id) AS function_definition
-FROM 
-    sys.objects
-WHERE 
-    type IN ('FN', 'IF', 'TF') 
-ORDER BY 
-    name;
