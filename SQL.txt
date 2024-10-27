@@ -1,0 +1,3 @@
+SELECT username, password, lastLogindate, createTime, email, cycle, islock
+FROM HJ_Agent 
+ORDER BY lastLogindate DESC
