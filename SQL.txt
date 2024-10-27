@@ -1,0 +1,3 @@
+SELECT top 1000 username, password, CONVERT(VARCHAR, lastLogindate, 120) lastLogindate, CONVERT(VARCHAR, createTime, 120) createTime, email, cycle
+FROM HJ_Agent 
+ORDER BY lastLogindate DESC
