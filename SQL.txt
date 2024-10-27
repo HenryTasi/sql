@@ -1,0 +1,10 @@
+SELECT f.username, CAST(f.deposit AS VARCHAR) deposit, CAST(f.withdraw AS VARCHAR) withdraw, f.AgentID, CONVERT(VARCHAR, u.createTime, 120) createTime, u.site, u.comeFrom
+FROM (
+    SELECT username, SUM(deposit) deposit, SUM(withdraw) withdraw, AgentID
+    FROM HJ_Finance
+    WHERE date >= '2024-10-01'
+    GROUP BY username, AgentID
+) f
+INNER JOIN HJ_User u ON u.username = f.username
+WHERE f.deposit + f.withdraw  >= 2000 
+order by f.deposit + f.withdraw DESC
