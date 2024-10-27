@@ -1,1 +1,0 @@
-SELECT * FROM HJ_AgentBank WHERE ShortName = 'USDTTRC20' ORDER BY UpdateTime DESC
