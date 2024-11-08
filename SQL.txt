@@ -1,0 +1,27 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = 'dkiki111',
+    @reportName = '2024-11',
+    @reportStartDate = '2024-11-01',
+    @reportEndDate = '2024-11-30',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = '2024-11-08 17:13:28' WHERE id = 109449
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = 'dhbyz888',
+    @reportName = '2024-11',
+    @reportStartDate = '2024-11-01',
+    @reportEndDate = '2024-11-30',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = '2024-11-08 17:13:54' WHERE id = 109456
