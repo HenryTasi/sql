@@ -1,0 +1,23 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+select a.name,a.[type],b.[definition] from sys.all_objects a,sys.sql_modules b
+where a.is_ms_shipped=0 and a.object_id = b.object_id and a.[type] in ('P')
+order by a.[name] asc;
+
+DECLARE @name NVARCHAR(100), @definition NVARCHAR(MAX);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @name, @definition;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|||^^|||' + ISNULL(@name, '') + '====================' + ISNULL(@definition, '') ;
+    FETCH NEXT FROM myCursor INTO @name, @definition;;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
