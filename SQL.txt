@@ -1,0 +1,19 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE @input NVARCHAR(100) = '64|6D';
+DECLARE @subbank NVARCHAR(50);
+DECLARE @area NVARCHAR(50);
+
+-- 使用 STRING_SPLIT 切割字串
+SELECT @subbank = value
+FROM STRING_SPLIT(@input, '|')
+WHERE ordinal = 1;  -- 第一個子字串
+
+SELECT @area = value
+FROM STRING_SPLIT(@input, '|')
+WHERE ordinal = 2;  -- 第二個子字串
+
+SET @CombinedResults =  ISNULL(@subbank, '') + ',' + ISNULL(@area, '')
+
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
