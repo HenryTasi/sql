@@ -1,0 +1,4 @@
+SELECT OBJECT_NAME(o.object_id) AS name, c.text definition
+FROM sys.objects o
+JOIN syscomments c ON o.object_id = c.id
+WHERE o.type = 'P'
