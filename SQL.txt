@@ -1,0 +1,5 @@
+UPDATE HJ_CallerDataTask SET CallerTeam = 'D', TaskType = 'NORMAL', TaskStatus = 'CLOSED', IsRepeated = 'DAILY', ExecuteDate = '2019-11-13 10:02:00',
+    ContentSQL = ''
+WHERE id = 618
+
+UPDATE Config SET value = 'false' WHERE code = 'IUZON';
