@@ -1,1 +1,0 @@
-select * from hj_cash where id = 93066874
