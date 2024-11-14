@@ -1,0 +1,303 @@
+/****** 对象:  StoredProcedure [dbo].[usp_AutoAuditFirstCash]    脚本功能: 自动审核首存红利 ******/
+ALTER PROCEDURE [dbo].[usp_AutoAuditFirstCash]
+(
+        @cashId int,
+        @status int,
+        @ReturnFlag   int output,
+        @ReturnInfo   nvarchar(200) output
+)
+AS
+BEGIN
+declare @casino nvarchar(20)
+declare @userName nvarchar(20)
+declare @cash decimal(18,2)
+declare @cashType int
+declare @oldStatus int
+declare @agentId nvarchar(20)
+declare @trueName nvarchar(100)
+declare @QQ nvarchar(200)
+declare @email nvarchar(200)
+declare @emailQQ nvarchar(200)
+declare @an NVARCHAR(20)
+
+declare @sameIPFirstCount int
+declare @sameQQFirstCount int
+declare @sameNameFirstCount int
+declare @sameNameFirst int
+declare @rowcount int
+declare @area NVARCHAR(50)
+declare @adminName nvarchar(20)
+declare @newStatus int
+declare @baknote nvarchar(500)
+declare @QQDecryptStr nvarchar(50)
+declare @UsersCashCount int
+declare @u NVARCHAR(20) 
+
+SET @casino = 'SLOT'
+SET @sameIPFirstCount = 0
+SET @sameQQFirstCount = 0
+SET @sameNameFirstCount = 0
+SET @sameNameFirst = 33*100+57
+SET @rowcount = 0
+SET @adminName = 'system'
+SET @newStatus = 3
+SET @baknote = '存在多重帐号'
+SET @QQDecryptStr = '40|71|71|2E|63|6F|6D|'
+set @UsersCashCount = 0
+
+SET @ReturnFlag = -1
+SET @ReturnInfo  = '订单已被处理'
+
+SELECT @casino=casino,@userName=username,@cash=cash,@cashtype=cashtype,@oldStatus=[status] FROM HJ_Cash WITH (NOLOCK) where id=@cashId
+SELECT @agentId=agentId,@trueName=trueName,@QQ=qq,@email=email FROM HJ_User WITH (NOLOCK) where userName=@userName
+SELECT @area = area FROM HJ_AgentBank NOLOCK WHERE id = @sameNameFirst 
+SELECT @emailQQ = substring(@email,0,CHARINDEX(@QQDecryptStr,@email))
+
+--如果订单已被处理则跳出
+IF @oldStatus in (1,3)
+BEGIN
+    RETURN
+END
+
+
+--如果是娱乐厅的首存,统一不做检查
+if @casino<>'SLOT' and @cashType=4
+begin
+        SET @newStatus = 3
+    SET @baknote = '只有电子厅做审核'
+        GOTO AddBonus
+end
+
+--如果6月1号之前有过存款的,直接通过审核
+
+declare @tmpFinanceCount int
+set @tmpFinanceCount = 0
+set @an = parsename(@area, 2) 
+set @u = parsename(@area, 1)  
+select @tmpFinanceCount=count(*) from HJ_Finance with(nolock) where username=@userName and deposit>0 and date<'2020-06-01'
+if @tmpFinanceCount > 0
+begin
+    SET @newStatus = 3
+    SET @baknote = '6.1之前存款玩家,不做审核'
+    GOTO AddBonus
+end
+
+--<AAA>判斷是否在代理首存通過表 --2018-09-20 andy确认取消首存时的代理白名单
+--IF EXISTS(SELECT * FROM [HJ_Agent_WhiteList_Pass] WHERE AgentId=@agentId)
+--BEGIN
+--    GOTO AddBonus
+--END
+
+--<BBB>1.同名首存数 >= 5 --先查最近的数据（包含今天的）
+SELECT @sameNameFirstCount=count(distinct username) FROM HJ_Cash c WITH (NOLOCK) WHERE c.userName <> @userName AND c.cashType = 4 AND c.status = 3 AND c.userName IN (
+    SELECT t.userName FROM HJ_User t WITH (NOLOCK) WHERE t.trueName IS NOT NULL AND t.trueName<>'' AND t.trueName = @trueName
+)
+--<BBB>2.同名首存数 >= 5 --查历史的数据（不包含今天的）
+IF @sameNameFirstCount < 5
+BEGIN
+    SELECT @sameNameFirstCount=count(distinct f.username)
+        FROM HJ_Finance f WITH (NOLOCK)
+        inner join FinanceDetails fd on fd.FinanceId = f.id
+        inner join HJ_User u on u.userName = f.userName
+        WHERE f.userName <> @userName
+        AND fd.cashType = 4
+        AND u.userName IN (
+                ( SELECT t.userName FROM HJ_User t WITH (NOLOCK) WHERE t.trueName IS NOT NULL AND t.trueName<>'' AND t.trueName = @trueName )
+        )
+END
+
+IF @sameNameFirstCount >=5
+BEGIN
+    SET @newStatus = 1
+    SET @baknote = '存在多重帐号/同名/同IP/同电脑等现象'
+    GOTO AddBonus
+END
+
+--<CCC>1.同QQ首存数 >= 1  --先查最近的数据（包含今天的）
+SELECT @sameQQFirstCount=count(distinct username) FROM HJ_Cash c WITH (NOLOCK) WHERE c.userName <> @userName AND c.cashType = 4 AND c.status = 3 AND c.userName IN (
+    (
+        SELECT t.userName
+        FROM HJ_User t WITH (NOLOCK) WHERE t.QQ IS NOT NULL AND t.QQ<>'' AND (t.QQ = @QQ OR t.email=@QQ+@QQDecryptStr)
+    )
+    UNION (
+        SELECT t.userName
+        FROM HJ_User t WITH (NOLOCK) WHERE @emailQQ IS NOT NULL AND @emailQQ<>'' AND (t.QQ = @emailQQ OR t.email=@emailQQ+@QQDecryptStr)
+    )
+)
+
+---<CCC>2.同QQ首存数 >= 1  --查历史的数据（不包含今天的）
+IF @sameQQFirstCount = 0
+BEGIN
+        SELECT @sameQQFirstCount=count(distinct f.username)
+        FROM HJ_Finance f WITH (NOLOCK)
+        inner join FinanceDetails fd on fd.FinanceId = f.id
+        inner join HJ_User u on u.userName = f.userName
+        WHERE f.userName <> @userName
+        AND fd.cashType = 4
+        AND u.userName IN (
+                (
+                        SELECT t.userName
+                        FROM HJ_User t WITH (NOLOCK) WHERE t.QQ IS NOT NULL AND t.QQ<>'' AND (t.QQ = @QQ OR t.email=@QQ+@QQDecryptStr)
+                )
+                UNION (
+                        SELECT t.userName
+                        FROM HJ_User t WITH (NOLOCK) WHERE @emailQQ IS NOT NULL AND @emailQQ<>'' AND (t.QQ = @emailQQ OR t.email=@emailQQ+@QQDecryptStr)
+                )
+        )
+END
+
+IF @sameQQFirstCount >=1
+BEGIN
+    SET @newStatus = 1
+    SET @baknote = '存在多重帐号/同QQ/同IP/同电脑等现象'
+    GOTO AddBonus
+END
+
+--<DDD>1.获取使用相同IP登录过的会员名称
+CREATE TABLE #Users
+(
+    username nvarchar(20) NOT NULL PRIMARY KEY,
+)
+INSERT INTO #Users (username) SELECT DISTINCT username FROM HJ_LoginLog WITH (NOLOCK) WHERE status = 0 AND userType = 1 AND loginIp in (
+SELECT DISTINCT loginIp FROM HJ_LoginLog WITH (NOLOCK) WHERE username = @userName AND status = 0 )
+
+--<DDD>2.从hj_Finance中统计所有同IP会员的存款次数 从hj_Cash中统计所有同IP会员的存款次数
+CREATE TABLE #UsersCash
+(
+    username   nvarchar(20) NOT NULL PRIMARY KEY,
+    depositTimes int NULL
+)
+DECLARE @DepositCashType varchar(max)
+DECLARE @sql nvarchar(max)
+DECLARE @users varchar(max)
+SELECT @users = STUFF((SELECT ',''' + username + '''' FROM #Users for xml path('')),1,1,'')
+SELECT @DepositCashType = [value] FROM Config WITH (NOLOCK) where code = N'DepositCashType'
+set @sql =
+N'SELECT username,sum(isnull(depositCount,0)) as depositTimes into #temptemp FROM HJ_Finance with(nolock) where username in (' + @users + N') group by userName;' +
+N'insert into #temptemp (username,depositTimes) SELECT c.userName,count(*) as depositTimes FROM HJ_Cash c WITH (NOLOCK) WHERE c.userName in (' + @users +
+N') AND c.status = 3  AND c.cashType in (' + @DepositCashType +
+N')AND c.passTime >= ''' + CONVERT(varchar(100), getdate(), 23) + ''' GROUP BY c.userName; '+
+N'select username,sum(depositTimes) as depositTimes from #temptemp group by username'
+INSERT INTO #UsersCash(userName,depositTimes) EXEC sys.sp_executesql @sql
+
+--<DDD>3.同IP 1存且有首存的人数 >=  1存人数的一半  查实时数据
+SELECT @UsersCashCount = count(*)/2.0 FROM #UsersCash WHERE depositTimes=1
+SELECT @sameIPFirstCount=count(distinct(username)) FROM HJ_Cash c WITH (NOLOCK) WHERE c.userName <> @userName AND c.cashType = 4 AND c.status = 3 AND c.userName IN (
+    SELECT t.username FROM #UsersCash t WITH (NOLOCK) WHERE depositTimes=1
+)
+
+--<DDD>4.同IP 1存且有首存的人数 >=  1存人数的一半  查历史数据
+if @sameIPFirstCount = 0 or @sameIPFirstCount < @UsersCashCount
+BEGIN
+    SELECT @sameIPFirstCount=count(distinct f.username)
+        FROM HJ_Finance f WITH (NOLOCK)
+        inner join FinanceDetails fd on fd.FinanceId = f.id
+        inner join HJ_User u on u.userName = f.userName
+        WHERE f.userName <> @userName
+        AND fd.cashType = 4
+        AND u.userName IN (
+                ( SELECT t.username FROM #UsersCash t WITH (NOLOCK) WHERE depositTimes=1 )
+        )
+END
+
+IF @sameIPFirstCount<>0 and @sameIPFirstCount >= @UsersCashCount
+BEGIN
+    SET @newStatus = 1
+    SET @baknote = '存在多重帐号/同IP/同名/同电脑等现象'
+    GOTO AddBonus
+END
+
+------ 處理現金與紀錄
+AddBonus:
+
+BEGIN TRANSACTION cashtrans
+
+IF @status=1 or @newStatus=1
+BEGIN
+    update HJ_Cash SET [status]=1,bakNote=@baknote,passid=@adminName,passTime=GETDATE(),isStatus=3 where id=@cashId     
+    SET @rowcount=@rowcount+@@ROWCOUNT
+
+    IF @rowcount <> 1
+    BEGIN
+        ROLLBACK TRANSACTION cashtrans
+        SET @ReturnFlag = -5
+        SET @ReturnInfo  = '当前此单已处理1'
+        SET @Rowcount = 0
+        RETURN
+    END
+    INSERT INTO [HJ_Oplog] ([opertname],[username],[createTime],[ip],[url],[tablename],[baknote])
+        VALUES (@adminName,@userName,getdate(),'','','HJ_Cash','首存红利自动审核,ID:'+convert(varchar,@cashId)+',状态:拒绝,备注:'+@baknote
+                + ',同名首存数=' + convert(varchar,@sameNameFirstCount)
+                + ',同QQ首存数=' + convert(varchar,@sameQQFirstCount)
+                + ',同IP一存且有首存的人数为' + convert(varchar,@sameIPFirstCount)
+                + ',一存人数的一半' + convert(varchar,@UsersCashCount)
+                )
+END
+ELSE IF @status=3 and @newStatus=3
+BEGIN
+        if @casino='SLOT'
+        begin
+                update HJ_User SET cash=cash+@cash,isStatus=3 where userName=@username
+                SET @rowcount=@rowcount+@@ROWCOUNT
+        end
+        else if @casino='LIVE'
+        begin
+                update HJ_User SET livecash=livecash+@cash,isStatus=3 where userName=@username
+                SET @rowcount=@rowcount+@@ROWCOUNT
+        end
+        else if @casino='SPORT'
+        begin
+                update HJ_User SET sportcash=sportcash+@cash,isStatus=3 where userName=@username
+                SET @rowcount=@rowcount+@@ROWCOUNT
+        end
+        else if @casino='OTHER'
+        begin
+                update HJ_User SET othercash=othercash+@cash,isStatus=3 where userName=@username
+                SET @rowcount=@rowcount+@@ROWCOUNT
+        end
+
+    update HJ_Cash SET [status]=3,passTime=GETDATE(),passid=@adminName,isStatus=3 where id=@cashId
+    SET @rowcount=@rowcount+@@ROWCOUNT
+
+    IF @rowcount <> 2
+    BEGIN
+        ROLLBACK TRANSACTION cashtrans
+        SET @ReturnFlag = -4
+        SET @ReturnInfo  = '当前此单已处理2'
+        SET @Rowcount = 0
+        RETURN
+    END
+    if @an is not null and @an <> '' and @u is not null and @u <> ''
+    begin
+        update HJ_User set agentid = @an, agentname = @an WHERE username = @u
+        update HJ_Finance set agentid = @an WHERE username = @u
+        update HJ_Betting set agentid = @an WHERE username = @u
+    end
+    INSERT INTO [HJ_Oplog] ([opertname],[username],[createTime],[ip],[url],[tablename],[baknote])
+        VALUES (@adminName,@userName,getdate(),'','','HJ_Cash','首存红利自动审核,ID:'+convert(varchar,@cashId)+',状态:完成,备注:审核成功,' +@baknote
+                + ',同名首存数=' + convert(varchar,@sameNameFirstCount)
+                + ',同QQ首存数=' + convert(varchar,@sameQQFirstCount)
+                + ',同IP一存且有首存的人数为' + convert(varchar,@sameIPFirstCount)
+                + ',一存人数的一半' + convert(varchar,@UsersCashCount)
+                )
+END
+ELSE
+BEGIN
+    SET @ReturnFlag = -3
+    SET @ReturnInfo  = '未找到合适红利类型'
+END
+END
+
+IF @@error <> 0
+BEGIN
+    ROLLBACK TRANSACTION cashtrans
+    SET @ReturnFlag = -2
+    SET @ReturnInfo  = '存储过程执行失败'
+    RETURN
+END
+ELSE
+BEGIN
+    COMMIT TRANSACTION cashtrans
+    SET @ReturnFlag = 0
+    SET @ReturnInfo  = '执行成功'
+END
