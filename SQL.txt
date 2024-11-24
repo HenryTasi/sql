@@ -1,0 +1,27 @@
+UPDATE Config SET value = 'false' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'www.dj8631b.com', comefrom = 'www.dj8631b.com' WHERE username = '888ysx369528'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888ysx369528'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888ysx369528'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'www.dj6088e.com', comefrom = 'www.dj6088e.com' WHERE username = '888a199454a'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888a199454a'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888a199454a'
+
+UPDATE HJ_User SET AgentID = 'dhbyz888', AgentName = 'dhbyz888', site = 'djbet158.com', comefrom = 'djbet158.com' WHERE username = '888zyfsyy'
+UPDATE HJ_Finance SET AgentID = 'dhbyz888' WHERE username = '888zyfsyy'
+UPDATE HJ_Betting SET AgentID = 'dhbyz888' WHERE username = '888zyfsyy'
+
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = 'dhbyz888',
+    @reportName = '2024-11',
+    @reportStartDate = '2024-11-01',
+    @reportEndDate = '2024-11-30',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = '2024-11-23 17:14:27' WHERE id = 109456
