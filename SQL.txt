@@ -1,4 +1,0 @@
-SELECT id, userName, agentId, site, comeFrom, CONVERT(VARCHAR, createTime, 120) createTime
-FROM HJ_User  
-WHERE agentId IN ('dkiki111', 'dmoney777', 'dxieyue158', 'dshengzheng', 'dhbyz888', 'dqdx888888', 'dammie1', 'dbetping2', 'djimmy1995')
-order by createTime DESC
