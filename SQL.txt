@@ -1,0 +1,56 @@
+select t.date, sum(deposit) deposit, sum(depositBySLOT) SLOT, sum(depositByLIVE) LIVE, sum(depositBySPORT) SPORT, sum(depositByOTHER) OTHER, 
+       sum(withdraw) withdraw, sum(bonus) bonus, sum(profit) profit,
+	   sum(activenumber) activenumber, sum(depositnumber) depositnumber, sum(deposittimes) deposittimes,
+	   sum(bets) bets, sum(payouts) payouts, sum(betnumber) betnumber
+from (
+	select 
+		convert( varchar ,c.PassTime, 23) [date], 
+		isnull(sum(case when ct.Type = 'deposit' then c.cash else 0 end), 0) deposit,
+		isnull(sum(case when ct.Type = 'deposit' and c.Casino = 'SLOT' then c.cash else 0 end), 0) depositBySLOT,
+		isnull(sum(case when ct.Type = 'deposit' and c.Casino = 'LIVE' then c.cash else 0 end), 0) depositByLIVE,
+		isnull(sum(case when ct.Type = 'deposit' and c.Casino = 'SPORT' then c.cash else 0 end), 0) depositBySPORT,
+		isnull(sum(case when ct.Type = 'deposit' and c.Casino = 'OTHER' then c.cash else 0 end), 0) depositByOTHER,
+		isnull(sum(case when ct.Type = 'withdraw' then c.cash else 0 end), 0) withdraw,
+		isnull(sum(case when ct.Type = 'bonus' then c.cash else 0 end), 0) bonus,
+		isnull(sum(case when ct.Type = 'deposit' or ct.Type = 'withdraw' then c.cash else 0 end), 0) profit,
+		isnull(count(case when c.isFirstCash = 1 then 1 end), 0) activenumber,
+		isnull(count(distinct (case when ct.Type = 'deposit' then c.userName end)), 0) depositnumber,
+		isnull(count(case when ct.Type = 'deposit' then c.cash end), 0) deposittimes,
+		0 bets,
+		0 payouts,
+		0 betnumber
+	from hj_cash c with(nolock)
+	inner join HJ_CashType ct with(nolock) on c.cashType = ct.cashType
+	where c.PassTime >= '2024-01-01' and 
+		  -- c.PassTime < '2021-03-01' and 
+		  -- ct.type = 'deposit' and
+		  -- DATEPART(HOUR, c.passTime) <= 13 and
+		  c.status = 3
+	group by convert( varchar ,c.PassTime, 23)
+	union all
+	select convert( varchar ,b.date, 23) [date],
+		   0 deposit,
+		   0 depositBySLOT,
+		   0 depositByLIVE,
+		   0 depositBySPORT,
+		   0 depositByOTHER,
+		   0 withdraw,
+		   0 bonus,
+		   0 profit,
+		   0 activenumber,
+		   0 depositnumber, 
+		   0 deposittimes,
+		   SUM(ISNULL(TotalBets,0)) as Bets, 
+		   SUM(ISNULL(TotalPayouts,0)) as Payouts, 
+		   COUNT(distinct b.userName) as BetNumber
+	from hj_betting b with(nolock) 
+	inner join HJ_User u with(nolock) ON u.userName = b.username
+	inner join hj_agent a with(nolock) ON b.agentId = a.username
+	inner join HJ_MarketingTeam m with(nolock) ON a.MTUser = m.UserName
+	where b.date >= '2024-01-01' and 
+		  -- b.date < '2021-03-01' and 
+		  b.TotalBets is not null
+	group by convert( varchar ,b.date, 23)
+) t
+group by t.date
+order by t.date desc 
