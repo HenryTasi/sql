@@ -1,0 +1,47 @@
+select t.date, sum(deposit) deposit, sum(depositBySLOT) SLOT, sum(depositByLIVE) LIVE, 
+       sum(withdraw) withdraw, sum(bonus) bonus, sum(profit) profit,
+	    sum(activenumber) activenumber, sum(depositnumber) depositnumber, sum(deposittimes) deposittimes,
+	   sum(bets) bets, sum(payouts) payouts, sum(betnumber) betnumber
+from (
+	select 
+		convert( varchar(7) ,c.date, 23) [date], 
+		isnull(sum(c.deposit), 0) deposit,
+		0 depositBySLOT,
+		0 depositByLIVE,
+		isnull(sum(c.withdraw), 0) withdraw,
+		isnull(sum(c.bonus), 0) bonus,
+		isnull(sum(c.deposit + c.withdraw), 0) profit,
+		0 activenumber,
+		0 depositnumber,
+		0 deposittimes,
+		0 bets,
+		0 payouts,
+		0 betnumber
+	from HJ_Finance c with(nolock)
+	-- inner join HJ_CashType ct with(nolock) on c.cashType = ct.cashType
+	where c.date >= '2020-03-01' 
+	group by convert( varchar(7) ,c.date, 23)
+	union all
+	select convert( varchar(7) ,b.date, 23) [date],
+		   0 deposit,
+		   0 depositBySLOT,
+		   0 depositByLIVE,
+		   0 withdraw,
+		   0 bonus,
+		   0 profit,
+		   0 activenumber,
+		   0 depositnumber, 
+		   0 deposittimes,
+		   SUM(ISNULL(TotalBets,0)) as Bets, 
+		   SUM(ISNULL(TotalPayouts,0)) as Payouts, 
+		   COUNT(distinct b.userName) as BetNumber
+	from hj_betting b with(nolock) 
+	inner join HJ_User u with(nolock) ON u.userName = b.username
+	inner join hj_agent a with(nolock) ON b.agentId = a.username
+	inner join HJ_MarketingTeam m with(nolock) ON a.MTUser = m.UserName
+	where b.date >= '2020-03-01' and 
+		  b.TotalBets is not null
+	group by convert( varchar(7) ,b.date, 23)
+) t
+group by t.date
+order by t.date desc 
