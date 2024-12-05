@@ -1,0 +1,8 @@
+UPDATE Config SET value = 'false' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '3792.ddj678.com', comefrom = '3792.ddj678.com' WHERE username = '888zxr199233'
+UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888zxr199233'
+UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888zxr199233'
+
+UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '3792.ddj133.com', comefrom = '3792.ddj133.com' WHERE username = '888jianhang1'
+UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888jianhang1'
+UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888jianhang1'
