@@ -1,0 +1,27 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT top 500 id, userName, agentId, site, comeFrom
+FROM HJ_User  
+WHERE agentId IN ('dmalisc')
+order by createTime DESC;
+
+DECLARE @id NVARCHAR(50), @userName NVARCHAR(MAX), @agentId NVARCHAR(MAX), @agentName NVARCHAR(MAX), @site NVARCHAR(MAX), @comeFrom NVARCHAR(MAX);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @id, @userName, @agentId, @site, @comeFrom;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' 
+    + ISNULL(@id, '') + ',' + ISNULL(@userName, '') + ',' + ISNULL(@agentId, '') + ',' + ISNULL(@site, '') + ',' + ISNULL(@comeFrom, '');
+    FETCH NEXT FROM myCursor INTO @id, @userName, @agentId, @site, @comeFrom;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
