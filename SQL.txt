@@ -1,0 +1,7 @@
+SELECT name AS TriggerName, 
+       parent_object_id AS TableObjectID, 
+       OBJECT_NAME(parent_object_id) AS TableName, 
+       type_desc AS TriggerType, 
+       create_date, 
+       modify_date
+FROM sys.triggers;
