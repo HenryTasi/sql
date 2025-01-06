@@ -1,0 +1,4 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+
+
+DELETE FROM HJ_LoginLog WHERE id IN (166357842)
