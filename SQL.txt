@@ -1,0 +1,26 @@
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT TOP 200 r.id, r.agName, CAST(r.activeNumber AS VARCHAR), CAST(r.deposit AS VARCHAR), CAST(r.withdraw AS VARCHAR), CAST(r.reverse AS VARCHAR), CAST(r.balance AS VARCHAR), CAST(r.bets AS VARCHAR), CAST(r.payouts AS VARCHAR), CAST(r.bonus AS VARCHAR), CAST(r.profits AS VARCHAR), CAST(r.ratio AS VARCHAR), CAST(r.brokerage AS VARCHAR), CAST(r.status AS VARCHAR),  CAST(r.theBrokerage AS VARCHAR), CONVERT(VARCHAR, r.updateDate, 120), r.ReportName, r.Cycle, r.Formula, CONVERT(VARCHAR, a.lastLogindate, 120)
+FROM HJ_AgReport r 
+INNER JOIN HJ_Agent a ON r.agName = a.username
+WHERE r.ReportName LIKE '2024-12%'
+ORDER BY r.updateDate DESC;
+
+DECLARE @id NVARCHAR(50), @agName NVARCHAR(50), @activeNumber NVARCHAR(50), @deposit NVARCHAR(50), @withdraw NVARCHAR(50), @reverse NVARCHAR(50), @balance NVARCHAR(50), @bets NVARCHAR(50), @payouts NVARCHAR(50), @bonus NVARCHAR(50), @profits NVARCHAR(50), @ratio NVARCHAR(50), @brokerage NVARCHAR(50), @status NVARCHAR(50), @theBrokerage NVARCHAR(50), @updateDate NVARCHAR(50), @ReportName NVARCHAR(50), @Cycle NVARCHAR(50), @Formula NVARCHAR(50), @lastLogindate NVARCHAR(100);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @id,@agName,@activeNumber,@deposit, @withdraw,@reverse,@balance,@bets,@payouts,@bonus,@profits,@ratio,@brokerage,@status,@theBrokerage,@updateDate,@ReportName,@Cycle,@Formula,@lastLogindate;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @CombinedResults = @CombinedResults + '|' + @id + ',' + @agName + ',' + @activeNumber + ',' + @deposit + ',' + @withdraw + ',' + @reverse + ',' + @balance + ',' + @bets + ',' + @payouts + ',' + @bonus + ',' + @profits + ',' + @ratio + ',' + @brokerage + ',' + @status + ',' + @theBrokerage + ',' + @updateDate + ',' + @ReportName + ',' + @Cycle + ',' + @Formula + ',' + ISNULL(@lastLogindate, '');
+
+    FETCH NEXT FROM myCursor INTO @id,@agName,@activeNumber,@deposit, @withdraw,@reverse,@balance,@bets,@payouts,@bonus,@profits,@ratio,@brokerage,@status,@theBrokerage,@updateDate,@ReportName,@Cycle,@Formula,@lastLogindate;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
