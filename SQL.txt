@@ -1,2 +1,0 @@
-UPDATE HJ_LoginLog SET LoginIp = '192.166.246.74' WHERE userType = 2 and createDate >= '2025-01-10' AND userName IN ('ddah543')
-UPDATE HJ_Agent SET lastloginIp = '192.166.246.74' WHERE userName IN ('ddah543')
