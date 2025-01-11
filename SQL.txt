@@ -1,0 +1,24 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'dli1585', AgentName = 'dli1585', site = '4622.djbet1.com', comefrom = 'https://m.baidu.com/' WHERE username = '888lov9898'
+UPDATE HJ_Finance SET AgentID = 'dli1585' WHERE username = '888lov9898'
+UPDATE HJ_Betting SET AgentID = 'dli1585' WHERE username = '888lov9898'
+
+DECLARE @TargetId INT = 110277
+DECLARE @AgName NVARCHAR(50) = 'dli1585'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-01-06~2025-01-12',
+    @reportStartDate = '2025-01-06',
+    @reportEndDate = '2025-01-12',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
