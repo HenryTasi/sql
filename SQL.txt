@@ -1,0 +1,6 @@
+DELETE FROM HJ_LoginLog WHERE id IN (167101048)
+
+update hj_admin set lastLoginDate = '2025/1/8 12:56:13', sessionId = 'muomfvi1caonfjgg2myq51ru' where adminName = 'Ned'
+
+
+select * from hj_admin 
