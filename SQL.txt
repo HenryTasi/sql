@@ -1,0 +1,5 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+SELECT id, userName, agentId, site, comeFrom, CAST(createTime AS VARCHAR)
+FROM HJ_User  
+WHERE agentId IN ('ddah543', 'dyan881109', 'dmalisc', 'dli1585', 'ddah543', 'ddan001')
+order by createTime DESC;
