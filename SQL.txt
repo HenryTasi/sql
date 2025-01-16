@@ -1,0 +1,5 @@
+
+SELECT id, userName, agentId, site, comeFrom, createTime
+FROM HJ_User  
+WHERE agentId IN ('ddah543', 'dyan881109', 'dmalisc', 'dli1585', 'ddan001')
+order by createTime DESC;
