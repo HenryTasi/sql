@@ -1,3 +1,0 @@
-
-select distinct url
-from hj_oplog where id > 42175488;
