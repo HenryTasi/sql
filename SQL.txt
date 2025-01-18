@@ -1,3 +1,0 @@
-SELECT id, userName, agentId, site, comeFrom, createTime
-FROM HJ_User  
-WHERE agentId IN ('ddul888')
