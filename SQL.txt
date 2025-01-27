@@ -2,3 +2,8 @@ UPDATE Config SET value = 'true' WHERE code = 'IUZON';
 UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '8882ying.com', comefrom = '8882ying.com' WHERE username = '888hao334420'
 UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888hao334420'
 UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888hao334420'
+
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'dmoney777', AgentName = 'dmoney777', site = 'www.8868win.com', comefrom = 'https://www.8868win.com/CN/PT2Games' WHERE username = '888zjh344140'
+UPDATE HJ_Finance SET AgentID = 'dmoney777' WHERE username = '888zjh344140'
+UPDATE HJ_Betting SET AgentID = 'dmoney777' WHERE username = '888zjh344140'
