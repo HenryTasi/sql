@@ -1,0 +1,4 @@
+
+UPDATE HJ_User SET AgentID = 'dbetping2', AgentName = 'dbetping2', site = '8885ying.com', comefrom = '8885ying.com' WHERE username = '888lov9898'
+UPDATE HJ_Finance SET AgentID = 'dbetping2' WHERE username = '888lov9898'
+UPDATE HJ_Betting SET AgentID = 'dbetping2' WHERE username = '888lov9898'
