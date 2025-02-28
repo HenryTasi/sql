@@ -1,0 +1,45 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+UPDATE HJ_User SET AgentID = 'dxieyue158', AgentName = 'dxieyue158', site = '6269.ddj138.com', comefrom = '6269.ddj138.com' WHERE username = '888hwx666'
+UPDATE HJ_Finance SET AgentID = 'dxieyue158' WHERE username = '888hwx666'
+UPDATE HJ_Betting SET AgentID = 'dxieyue158' WHERE username = '888hwx666'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'www.dj8808a.com', comefrom = 'www.dj8808a.com' WHERE username = '888qinxue123'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888qinxue123'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888qinxue123'
+
+DECLARE @TargetId INT = 110567
+DECLARE @AgName NVARCHAR(50) = 'dxieyue158'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-02',
+    @reportStartDate = '2025-02-01',
+    @reportEndDate = '2025-02-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+SET @TargetId = 110582
+SET @AgName = 'dhbyz888'; 
+
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+
+-- 执行存储过程并传递参数
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-02',
+    @reportStartDate = '2025-02-01',
+    @reportEndDate = '2025-02-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
