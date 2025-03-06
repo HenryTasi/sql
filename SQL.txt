@@ -1,6 +1,0 @@
-UPDATE Config SET value = 'true' WHERE code = 'IUZON';
-
-UPDATE HJ_Agent SET password = '55d568c8fff205667db43b7c50c28b39', emailstatus = 1 WHERE username = 'dzb198811'
-UPDATE HJ_Agent SET password = '520guyaping', emailstatus = 1 WHERE username = 'd5168chen'
-
-UPDATE HJ_AgentBank SET username = 'dzb198811', Account = '54|53|71|4B|6A|44|79|4E|65|64|77|70|35|5A|74|4A|74|53|37|59|37|6B|46|39|56|59|4E|59|73|69|4C|72|69|6D|', Operator = 'dzb198811' WHERE id = 3263
