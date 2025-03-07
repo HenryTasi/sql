@@ -1,5 +1,0 @@
-
-SELECT id, userName, agentId, site, comeFrom, createTime
-FROM HJ_User  
-WHERE agentId IN ('dkiki111','dmoney777','dxieyue158','dshengzheng','dhbyz888','ddan001','ddul888','dzb198811','dachua2016','dqdx888888','dli1585','dhujing521','dmlbw888','dAdam520','djimmy1995','d888bet','dzhangtao','dbyl168','djin123453','dfish2018','dpingbo888','ddjvip888','dasdqwe321','dbella8','d88888lijie','d10066a','dls525555','dyj1314','dtommy10','dtommy9','dskyzhou','dfengge','dAndy77519','dyuki4670','dachua2016','dwzh666888','dammie1','ddajiang','d5186chen')
-order by createTime DESC;
