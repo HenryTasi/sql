@@ -1,0 +1,4 @@
+
+UPDATE HJ_User SET AgentID = 'dhbyz888', AgentName = 'dhbyz888', site = 'www.t2vip.com', comefrom = 'http://www.gzgxs.org/gameskyIBC/15353975.html' WHERE username = '888sjf647669'
+UPDATE HJ_Finance SET AgentID = 'dhbyz888' WHERE username = '888sjf647669'
+UPDATE HJ_Betting SET AgentID = 'dhbyz888' WHERE username = '888sjf647669'
