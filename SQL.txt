@@ -1,1 +1,0 @@
-UPDATE HJ_Agent SET password = '318cf0b900a84b6535c0354c4867c95b', emailstatus = 1 WHERE username = 'd5168chen'
