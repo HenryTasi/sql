@@ -1,0 +1,5 @@
+UPDATE Config SET value = 'true' WHERE code = 'IUZON';
+UPDATE HJ_LoginLog SET LoginIp = '146.70.48.238' WHERE userType = 2 and createDate >= '2025-03-01' AND userName IN ('dli1585')
+UPDATE HJ_Agent SET lastloginIp = '146.70.48.238' WHERE userName IN ('dli1585')
+UPDATE HJ_LoginLog SET LoginIp = '112.255.181.171' WHERE userType = 2 and createDate >= '2025-03-01' AND userName IN ('dhujing521')
+UPDATE HJ_Agent SET lastloginIp = '112.255.181.171' WHERE userName IN ('dhujing521')
