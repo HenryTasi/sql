@@ -1,0 +1,6 @@
+UPDATE HJ_LoginLog SET LoginIp = '156.146.57.12' WHERE userType = 2 and createDate >= '2025-03-17' AND userName IN ('dkiki111')
+UPDATE HJ_Agent SET lastloginIp = '156.146.57.12' WHERE userName IN ('dkiki111')
+
+UPDATE HJ_User SET AgentID = 'dhujing521', AgentName = 'dhujing521', site = 'www.ptpt82.com', comefrom = 'https://6062vip.com/?AgentUserName=dhujing521' WHERE username = '888wc8166666'
+UPDATE HJ_Finance SET AgentID = 'dhujing521' WHERE username = '888wc8166666'
+UPDATE HJ_Betting SET AgentID = 'dhujing521' WHERE username = '888wc8166666'                                                                                                                                                                      
