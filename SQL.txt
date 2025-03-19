@@ -1,4 +1,0 @@
-UPDATE Config SET value = 'true' WHERE code = 'IUZON';
-UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'dj8888a.com', comefrom = 'dj8888a.com' WHERE username = '888b34168806'
-UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888b34168806'
-UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888b34168806'
