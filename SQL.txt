@@ -1,0 +1,5 @@
+USE msdb;
+GO
+
+SELECT job_id, name AS JobName
+FROM msdb.dbo.sysjobs
