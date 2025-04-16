@@ -1,0 +1,8 @@
+
+UPDATE HJ_User SET AgentID = 'dammie1', AgentName = 'dammie1', site = 'www.dota599.com', comefrom = 'www.dota599.com' WHERE username = '888zhy580211'
+UPDATE HJ_Finance SET AgentID = 'dammie1' WHERE username = '888zhy580211'
+UPDATE HJ_Betting SET AgentID = 'dammie1' WHERE username = '888zhy580211'
+
+UPDATE HJ_User SET AgentID = 'dmoney777', AgentName = 'dmoney777', site = 'www.8868win.com', comefrom = 'www.8868win.com' WHERE username = '888lov9898'
+UPDATE HJ_Finance SET AgentID = 'dmoney777' WHERE username = '888lov9898'
+UPDATE HJ_Betting SET AgentID = 'dmoney777' WHERE username = '888lov9898'
