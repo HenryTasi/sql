@@ -1,7 +1,0 @@
-
-UPDATE HJ_User SET AgentID = 'dhbyz888', AgentName = 'dhbyz888', site = 't2vip.com', comefrom = 't2vip.com' WHERE username = '888dhy888888'
-UPDATE HJ_Finance SET AgentID = 'dhbyz888' WHERE username = '888dhy888888'
-UPDATE HJ_Betting SET AgentID = 'dhbyz888' WHERE username = '888dhy888888'
-
-UPDATE HJ_LoginLog SET LoginIp = '149.22.87.172' WHERE userType = 2 and createDate >= '2025-04-17' AND userName IN ('dhbyz888')
-UPDATE HJ_Agent SET lastloginIp = '149.22.87.172' WHERE userName IN ('dhbyz888')
