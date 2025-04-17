@@ -1,3 +1,0 @@
-
-
-DELETE FROM HJ_agReport WHERE id = 111499
