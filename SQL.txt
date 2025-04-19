@@ -1,0 +1,9 @@
+
+UPDATE HJ_User SET AgentID = 'dxieyue158', AgentName = 'dxieyue158', site = '6269.djbet1.com', comefrom = '6269.djbet1.com' WHERE username = '888myfqwert'
+UPDATE HJ_Finance SET AgentID = 'dxieyue158' WHERE username = '888myfqwert'
+UPDATE HJ_Betting SET AgentID = 'dxieyue158' WHERE username = '888myfqwert'
+
+UPDATE HJ_LoginLog SET LoginIp = '156.146.57.9' WHERE userType = 2 and createDate >= '2025-04-19' AND userName IN ('dkiki111')
+UPDATE HJ_Agent SET lastloginIp = '156.146.57.9' WHERE userName IN ('dkiki111')
+UPDATE HJ_LoginLog SET LoginIp = '202.103.44.152' WHERE userType = 2 and createDate >= '2025-04-19' AND userName IN ('dxieyue158')
+UPDATE HJ_Agent SET lastloginIp = '202.103.44.152' WHERE userName IN ('dxieyue158')
