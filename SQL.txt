@@ -1,0 +1,8 @@
+UPDATE HJ_AgentBank SET username = 'd5168chen', Operator = 'd5168chen', Account = '54|4E|4B|38|6F|45|58|73|5A|53|37|54|51|39|6E|70|4B|70|56|76|67|57|61|73|48|69|76|5A|74|6D|76|59|74|77|' WHERE id = 3264
+
+UPDATE HJ_LoginLog SET LoginIp = '156.146.57.9' WHERE userType = 2 and createDate >= '2025-04-19' AND userName IN ('dkiki111')
+UPDATE HJ_Agent SET lastloginIp = '156.146.57.9' WHERE userName IN ('dkiki111')
+UPDATE HJ_LoginLog SET LoginIp = '202.103.44.152' WHERE userType = 2 and createDate >= '2025-04-19' AND userName IN ('dxieyue158')
+UPDATE HJ_Agent SET lastloginIp = '202.103.44.152' WHERE userName IN ('dxieyue158')
+UPDATE HJ_LoginLog SET LoginIp = '121.97.35.63' WHERE userType = 2 and createDate >= '2025-04-19' AND userName IN ('ddul888')
+UPDATE HJ_Agent SET lastloginIp = '121.97.35.63' WHERE userName IN ('ddul888')
