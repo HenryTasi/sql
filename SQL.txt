@@ -1,0 +1,4 @@
+
+UPDATE HJ_User SET AgentID = 'dbyl168', AgentName = 'dbyl168', site = 'djbet568.com', comefrom = 'http://www.figolub.com/' WHERE username = '888cflcfl888'
+UPDATE HJ_Finance SET AgentID = 'dbyl168' WHERE username = '888cflcfl888'
+UPDATE HJ_Betting SET AgentID = 'dbyl168' WHERE username = '888cflcfl888'
