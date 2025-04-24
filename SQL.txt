@@ -1,0 +1,8 @@
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'www.dj6088e.com', comefrom = 'www.dj6088e.com' WHERE username = '888yxd2295'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888yxd2295'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888yxd2295'
+
+UPDATE HJ_User SET AgentID = 'dkiki111', AgentName = 'dkiki111', site = '6068vip.com', comefrom = '' WHERE username = '888zxj001'
+UPDATE HJ_Finance SET AgentID = 'dkiki111' WHERE username = '888zxj001'
+UPDATE HJ_Betting SET AgentID = 'dkiki111' WHERE username = '888zxj001'
