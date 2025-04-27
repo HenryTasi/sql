@@ -1,0 +1,6 @@
+UPDATE HJ_LoginLog SET LoginIp = '202.103.44.150' WHERE userType = 2 and createDate >= '2025-04-26' AND userName IN ('dxieyue158')
+UPDATE HJ_Agent SET lastloginIp = '202.103.44.150' WHERE userName IN ('dxieyue158')
+UPDATE HJ_LoginLog SET LoginIp = '149.22.87.184' WHERE userType = 2 and createDate >= '2025-04-26' AND userName IN ('dhbyz888')
+UPDATE HJ_Agent SET lastloginIp = '149.22.87.184' WHERE userName IN ('dhbyz888')
+UPDATE HJ_LoginLog SET LoginIp = '138.199.30.215' WHERE userType = 2 and createDate >= '2025-04-26' AND userName IN ('dmoney777')
+UPDATE HJ_Agent SET lastloginIp = '138.199.30.215' WHERE userName IN ('dmoney777')
