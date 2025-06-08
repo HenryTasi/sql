@@ -1,0 +1,24 @@
+
+UPDATE HJ_User SET AgentID = 'dfish2018', AgentName = 'dfish2018', site = '20440.ddj133.com', comefrom = '20440.ddj133.com' WHERE username = '888sjf647669'
+UPDATE HJ_Finance SET AgentID = 'dfish2018' WHERE username = '888sjf647669'
+UPDATE HJ_Betting SET AgentID = 'dfish2018' WHERE username = '888sjf647669'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj133.com', comefrom = '8233.ddj133.com' WHERE username = '888songyu888'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888songyu888'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888songyu888'
+
+UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '8866win.com', comefrom = '8866win.com' WHERE username = '888wo323321'
+UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888wo323321'
+UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888wo323321'
+
+UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '8866win.com', comefrom = '8866win.com' WHERE username = '888likexin88'
+UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888likexin88'
+UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888likexin88'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username = '888wanhxy'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888wanhxy'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888wanhxy'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username = '888zjc131425'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888zjc131425'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888zjc131425'
