@@ -1,4 +1,0 @@
-
-UPDATE HJ_User SET AgentID = 'dqdx888888', AgentName = 'dqdx888888', site = '16735.ddj678.com', comefrom = '16735.ddj678.com' WHERE username = '888rxl318'
-UPDATE HJ_Finance SET AgentID = 'dqdx888888' WHERE username = '888rxl318'
-UPDATE HJ_Betting SET AgentID = 'dqdx888888' WHERE username = '888rxl318'
