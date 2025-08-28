@@ -1,3 +1,0 @@
-UPDATE HJ_User SET AgentID = 'ddan001', AgentName = 'ddan001', site = 'dota799.com', comefrom = 'dota799.com' WHERE username = '888lpf0727'
-UPDATE HJ_Finance SET AgentID = 'ddan001' WHERE username = '888lpf0727'
-UPDATE HJ_Betting SET AgentID = 'ddan001' WHERE username = '888lpf0727'
