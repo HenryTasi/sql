@@ -1,0 +1,21 @@
+DECLARE @AgName NVARCHAR(50) = 'dkiki111'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+DECLARE @ReportName nvarchar(40);
+DECLARE @ReportStartDate nvarchar(10);
+DECLARE @ReportEndDate nvarchar(10);
+DECLARE @TargetId int;
+
+SELECT TOP 1 @TargetId = id, @OriginalUpdateDate = updateDate, @ReportName = ReportName, @ReportStartDate = CONVERT(NVARCHAR(10), ReportStartDate, 23), @ReportEndDate = CONVERT(NVARCHAR(10), ReportEndDate, 23) FROM HJ_AgReport WHERE agName = @AgName ORDER BY id DESC
+
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = @ReportName,
+    @reportStartDate = @ReportStartDate,
+    @reportEndDate = @ReportEndDate,
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
