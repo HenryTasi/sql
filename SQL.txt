@@ -1,0 +1,13 @@
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = '8233.djbet1.com', comefrom = '8233.djbet1.com' WHERE username='888herenqian' and last_request_start_time >= '2025-10-10'
+
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'dj168b.com', comefrom = 'dj168b.com' WHERE username='888duweijia' and last_request_start_time >= '2025-10-10'
+
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddul888', site = 'ptpt86.com', comefrom = 'ptpt86.com' WHERE username='888mk15555' and last_request_start_time >= '2025-10-10'
+
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'djimmy1995', site = '8882ying.com', comefrom = '8882ying.com' WHERE username='888zya6789' and last_request_start_time >= '2025-10-10'
+
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddan001', site = 'dota799.com', comefrom = 'dota799.com' WHERE username='888txl199285' and last_request_start_time >= '2025-10-10'
+
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'dli1585', site = '4622.djbet1.com', comefrom = '4622.djbet1.com' WHERE username='888nb9876' and last_request_start_time >= '2025-10-10'
+
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'www.dj6606x.com', comefrom = 'www.dj6606x.com' WHERE username='888xwlxwl' and last_request_start_time >= '2025-10-10'
