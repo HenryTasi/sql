@@ -1,4 +1,0 @@
-UPDATE HJ_User SET AgentID = 'dhbyz888', AgentName = 'dhbyz888', site = 't2vip.com', comefrom = 't2vip.com' WHERE username = '888886886f'
-UPDATE HJ_Finance SET AgentID = 'dhbyz888' WHERE username = '888886886f'
-UPDATE HJ_Betting SET AgentID = 'dhbyz888' WHERE username = '888886886f'
-UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'dhbyz888', site = 't2vip.com', comefrom = 't2vip.com' WHERE username='888886886f' and last_request_start_time >= '2025-10-10'
