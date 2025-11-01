@@ -1,0 +1,34 @@
+UPDATE HJ_User SET AgentID = 'dli1585', AgentName = 'dli1585', site = '4622.djbet1.com', comefrom = '4622.djbet1.com' WHERE username = '888888xdl123'
+UPDATE HJ_Finance SET AgentID = 'dli1585' WHERE username = '888888xdl123'
+UPDATE HJ_Betting SET AgentID = 'dli1585' WHERE username = '888888xdl123'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'dli1585', site = '4622.djbet1.com', comefrom = '4622.djbet1.com' WHERE username='888888xdl123' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'idj9888.com', comefrom = 'idj9888.com' WHERE username = '888ljj1111'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888ljj1111'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888ljj1111'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'idj9888.com', comefrom = 'idj9888.com' WHERE username='888ljj1111' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = 'www.idj8866.com', comefrom = 'www.idj8866.com' WHERE username = '888lg1991'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888lg1991'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888lg1991'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = 'www.idj8866.com', comefrom = 'www.idj8866.com' WHERE username='888lg1991' and last_request_start_time >= '2025-10-10'
+
+DECLARE @TargetId INT = 113458
+DECLARE @AgName NVARCHAR(50) = 'd5168chen'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-10-20~2025-10-26',
+    @reportStartDate = '2025-10-20',
+    @reportEndDate = '2025-10-26',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 7871.69,brokerage=9609.19 WHERE id = @TargetId;
