@@ -1,0 +1,38 @@
+UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '8882ying.com', comefrom = '8882ying.com' WHERE username = '888herenqian'
+UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888herenqian'
+UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888herenqian'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'djimmy1995', site = '8882ying.com', comefrom = '8882ying.com' WHERE username='888herenqian' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'www.68pt8.com', comefrom = 'www.68pt8.com' WHERE username = '888xy000920'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888xy000920'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888xy000920'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'www.68pt8.com', comefrom = 'www.68pt8.com' WHERE username='888xy000920' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username = '888ylc871216'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888ylc871216'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888ylc871216'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username='888ylc871216' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username = '888xiefei139'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888xiefei139'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888xiefei139'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username='888xiefei139' and last_request_start_time >= '2025-10-10'
+
+DECLARE @TargetId INT = 113636
+DECLARE @AgName NVARCHAR(50) = 'd5168chen'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-11-03~2025-11-09',
+    @reportStartDate = '2025-11-03',
+    @reportEndDate = '2025-11-09',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
