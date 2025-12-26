@@ -1,4 +1,0 @@
-UPDATE HJ_User SET AgentID = 'dshengzheng', AgentName = 'dshengzheng', site = 'www.51yl888.com', comefrom = 'www.51yl888.com' WHERE username = '88888ws88888'
-UPDATE HJ_Finance SET AgentID = 'dshengzheng' WHERE username = '88888ws88888'
-UPDATE HJ_Betting SET AgentID = 'dshengzheng' WHERE username = '88888ws88888'
-UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'dshengzheng', site = 'www.51yl888.com', comefrom = 'www.51yl888.com' WHERE username='88888ws88888' and last_request_start_time >= '2025-10-10'
