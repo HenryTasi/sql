@@ -1,0 +1,19 @@
+DECLARE @TargetId INT = 113260
+DECLARE @AgName NVARCHAR(50) = 'dshengzheng'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-10',
+    @reportStartDate = '2025-10-01',
+    @reportEndDate = '2025-10-31',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 5484.62,brokerage=6052.32 WHERE id = @TargetId;
