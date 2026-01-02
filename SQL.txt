@@ -1,0 +1,64 @@
+DECLARE @TargetId INT = 113841
+DECLARE @AgName NVARCHAR(50) = 'dyuhai123'; 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-11-24~2025-11-30',
+    @reportStartDate = '2025-11-24',
+    @reportEndDate = '2025-11-30',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+
+SET @TargetId = 113950
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-12-01~2025-12-07',
+    @reportStartDate = '2025-12-01',
+    @reportEndDate = '2025-12-07',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+SET @TargetId = 114024
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-12-08~2025-12-14',
+    @reportStartDate = '2025-12-08',
+    @reportEndDate = '2025-12-14',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+SET @TargetId = 114083
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-12-15~2025-12-21',
+    @reportStartDate = '2025-12-15',
+    @reportEndDate = '2025-12-21',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+SET @TargetId = 114148
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-12-22~2025-12-28',
+    @reportStartDate = '2025-12-22',
+    @reportEndDate = '2025-12-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
