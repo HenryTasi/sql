@@ -1,0 +1,9 @@
+UPDATE HJ_User SET AgentID = 'ddul888', AgentName = 'ddul888', site = 'ptpt86.com', comefrom = 'ptpt86.com' WHERE username = '888hongming'
+UPDATE HJ_Finance SET AgentID = 'ddul888' WHERE username = '888hongming'
+UPDATE HJ_Betting SET AgentID = 'ddul888' WHERE username = '888hongming'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddul888', site = 'ptpt86.com', comefrom = 'ptpt86.com' WHERE username='888hongming' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'www.ptpt86.com', comefrom = 'www.ptpt86.com' WHERE username = '888xuesongzx'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888xuesongzx'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888xuesongzx'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'www.ptpt86.com', comefrom = 'www.ptpt86.com' WHERE username='888xuesongzx' and last_request_start_time >= '2025-10-10'
