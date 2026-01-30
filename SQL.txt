@@ -1,0 +1,2 @@
+EXEC dbo.usp_UpdateAgReport @agName='dxieyue158', @reportName='2026-01', @reportStartDate='2026-01-01', @reportEndDate='2026-01-31', @isCurrent=1;
+UPDATE HJ_AgReport SET updateDate = '2026-01-29 17:14:23' WHERE id = 114244;
