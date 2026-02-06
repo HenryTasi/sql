@@ -1,0 +1,42 @@
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username = '888wz251213'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888wz251213'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888wz251213'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = '8233.ddj169.com', comefrom = '8233.ddj169.com' WHERE username='888wz251213' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'dj448.com', comefrom = 'dj448.com' WHERE username = '888gu0114'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888gu0114'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888gu0114'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'dj448.com', comefrom = 'dj448.com' WHERE username='888gu0114' and last_request_start_time >= '2025-10-10'
+
+DECLARE @TargetId INT;
+DECLARE @AgName NVARCHAR(50); 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SET @TargetId = 114447;
+SET @AgName = 'd5168chen';
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-01-19~2026-01-25',
+    @reportStartDate = '2026-01-19',
+    @reportEndDate = '2026-01-25',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+
+SET @TargetId = 114504;
+SET @AgName = 'd5168chen';
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-01-26~2026-02-01',
+    @reportStartDate = '2026-01-26',
+    @reportEndDate = '2026-02-01',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
