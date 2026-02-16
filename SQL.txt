@@ -1,0 +1,21 @@
+
+DECLARE @TargetId INT;
+DECLARE @AgName NVARCHAR(50); 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+
+
+SET @TargetId = 113909;
+SET @AgName = 'dachua2016';
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2025-12',
+    @reportStartDate = '2025-12-01',
+    @reportEndDate = '2025-12-31',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate, theBrokerage = 0.0 WHERE id = @TargetId;
