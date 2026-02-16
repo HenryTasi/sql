@@ -1,6 +1,0 @@
-
-DECLARE @TargetId INT;
-
-SET @TargetId = 113909;
-SET @AgName = 'dachua2016';
-UPDATE HJ_AgReport SET theBrokerage = 0,brokerage = 0 WHERE id = @TargetId;
