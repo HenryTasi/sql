@@ -1,1 +1,0 @@
-UPDATE HJ_AgReport SET theBrokerage = 0.0,brokerage = 0.0 WHERE id = 113909;
