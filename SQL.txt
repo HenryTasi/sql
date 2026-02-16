@@ -1,0 +1,32 @@
+UPDATE HJ_User SET AgentID = 'dzhangtao', AgentName = 'dzhangtao', site = '2769.ddj119.com', comefrom = '2769.ddj119.com' WHERE username = '888yyyy1990'
+UPDATE HJ_Finance SET AgentID = 'dzhangtao' WHERE username = '888yyyy1990'
+UPDATE HJ_Betting SET AgentID = 'dzhangtao' WHERE username = '888yyyy1990'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'dzhangtao', site = '2769.ddj119.com', comefrom = '2769.ddj119.com' WHERE username='888yyyy1990' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj133.com', comefrom = '8233.ddj133.com' WHERE username = '888sjf647669'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888sjf647669'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888sjf647669'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = '8233.ddj133.com', comefrom = '8233.ddj133.com' WHERE username='888sjf647669' and last_request_start_time >= '2025-10-10'
+
+DECLARE @TargetId INT ;
+DECLARE @AgName NVARCHAR(50); 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SET @TargetId = 114629;
+SET @AgName = 'd5168chen';
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-02-02~2026-02-08',
+    @reportStartDate = '2026-02-02',
+    @reportEndDate = '2026-02-08',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 3018.87,brokerage=5255.19 WHERE id = @TargetId;
+
+EXEC dbo.usp_UpdateAgReport @agName='d5168chen', @reportName='2026-02-09~2026-02-15', @reportStartDate='2026-02-09', @reportEndDate='2026-02-15', @isCurrent=1, @ReturnFlag = @ReturnFlag OUTPUT, @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = '2026-02-16 17:25:58' WHERE id = 114703;
