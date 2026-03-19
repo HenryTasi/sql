@@ -1,0 +1,37 @@
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'ptpt82.com', comefrom = 'ptpt82.com' WHERE username = '888zgxzzxzz'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888zgxzzxzz'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888zgxzzxzz'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'ptpt82.com', comefrom = 'ptpt82.com' WHERE username='888zgxzzxzz' and last_request_start_time >= '2025-10-10'
+
+DECLARE @TargetId INT;
+DECLARE @AgName NVARCHAR(50); 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SET @TargetId = 115048;
+SET @AgName = 'dhujing521';
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-03-09~2026-03-15',
+    @reportStartDate = '2026-03-09',
+    @reportEndDate = '2026-03-15',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+SET @TargetId = 114968;
+SET @AgName = 'dhujing521';
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-03-02~2026-03-08',
+    @reportStartDate = '2026-03-02',
+    @reportEndDate = '2026-03-08',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 2900.97,brokerage=4468.42 WHERE id = @TargetId;
