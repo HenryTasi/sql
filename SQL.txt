@@ -1,0 +1,9 @@
+UPDATE HJ_User SET AgentID = 'd5168chen', AgentName = 'd5168chen', site = '8233.ddj133.com', comefrom = '8233.ddj133.com' WHERE username = '888sjf647669'
+UPDATE HJ_Finance SET AgentID = 'd5168chen' WHERE username = '888sjf647669'
+UPDATE HJ_Betting SET AgentID = 'd5168chen' WHERE username = '888sjf647669'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'd5168chen', site = '8233.ddj133.com', comefrom = '8233.ddj133.com' WHERE username='888sjf647669' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'ddjdl888', AgentName = 'ddjdl888', site = 'dj100a.com', comefrom = 'dj100a.com' WHERE username = '888xh1214'
+UPDATE HJ_Finance SET AgentID = 'ddjdl888' WHERE username = '888xh1214'
+UPDATE HJ_Betting SET AgentID = 'ddjdl888' WHERE username = '888xh1214'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddjdl888', site = 'dj100a.com', comefrom = 'dj100a.com' WHERE username='888xh1214' and last_request_start_time >= '2025-10-10'
