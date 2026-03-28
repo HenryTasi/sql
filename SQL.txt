@@ -1,0 +1,9 @@
+UPDATE HJ_User SET AgentID = 'djimmy1995', AgentName = 'djimmy1995', site = '6669ying.com', comefrom = '6669ying.com' WHERE username = '888swjswj'
+UPDATE HJ_Finance SET AgentID = 'djimmy1995' WHERE username = '888swjswj'
+UPDATE HJ_Betting SET AgentID = 'djimmy1995' WHERE username = '888swjswj'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'djimmy1995', site = '6669ying.com', comefrom = '6669ying.com' WHERE username='888swjswj' and last_request_start_time >= '2025-10-10'
+
+UPDATE HJ_User SET AgentID = 'ddan001', AgentName = 'ddan001', site = 'dota799.com', comefrom = 'dota799.com' WHERE username = '888liutao921'
+UPDATE HJ_Finance SET AgentID = 'ddan001' WHERE username = '888liutao921'
+UPDATE HJ_Betting SET AgentID = 'ddan001' WHERE username = '888liutao921'
+UPDATE [DJ_Backup]..[HJ_User] SET agentid = 'ddan001', site = 'dota799.com', comefrom = 'dota799.com' WHERE username='888liutao921' and last_request_start_time >= '2025-10-10'
