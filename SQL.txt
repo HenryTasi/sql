@@ -1,0 +1,74 @@
+DECLARE @TargetId INT;
+DECLARE @AgName NVARCHAR(50); 
+DECLARE @OriginalUpdateDate DATETIME;
+DECLARE @ReturnFlag int;
+DECLARE @ReturnInfo nvarchar(100);
+
+SET @TargetId = 114577;
+SET @AgName = 'dkiki111';
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-02',
+    @reportStartDate = '2026-02-01',
+    @reportEndDate = '2026-02-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate WHERE id = @TargetId;
+
+SET @TargetId = 114579;
+SET @AgName = 'ddan001';
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-02',
+    @reportStartDate = '2026-02-01',
+    @reportEndDate = '2026-02-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 19256.49,brokerage=20368.8 WHERE id = @TargetId;
+
+SET @TargetId = 114249;
+SET @AgName = 'ddan001';
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-01',
+    @reportStartDate = '2026-01-01',
+    @reportEndDate = '2026-01-31',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 14062.46,brokerage=14642.52 WHERE id = @TargetId;
+
+SET @TargetId = 114576;
+SET @AgName = 'ddul888';
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-02',
+    @reportStartDate = '2026-02-01',
+    @reportEndDate = '2026-02-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 9151.23,brokerage=9638.36 WHERE id = @TargetId;
+
+SET @TargetId = 114574;
+SET @AgName = 'dxieyue158';
+UPDATE HJ_AgReport SET status = 0 WHERE id = @TargetId;
+SELECT @OriginalUpdateDate = updateDate FROM HJ_AgReport WHERE id = @TargetId;
+EXECUTE dbo.usp_UpdateAgReport 
+    @agName = @AgName,
+    @reportName = '2026-02',
+    @reportStartDate = '2026-02-01',
+    @reportEndDate = '2026-02-28',
+    @isCurrent = 1,
+    @ReturnFlag = @ReturnFlag OUTPUT,
+    @ReturnInfo = @ReturnInfo OUTPUT;
+UPDATE HJ_AgReport SET updateDate = @OriginalUpdateDate,status = 3,theBrokerage = 6606.23,brokerage=7054.65 WHERE id = @TargetId;
